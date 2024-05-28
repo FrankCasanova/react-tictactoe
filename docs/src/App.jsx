@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import './styles.css';
 
 function Square({ value, onSquareClick }) {
@@ -9,7 +9,7 @@ function Square({ value, onSquareClick }) {
   );
 }
 
-function Board({ xIsNext, squares, onPlay }) {
+function Board({ xIsNext, squares, onPlay, audioRefX, audioRefO, audioRefWinner }) {
   function handleClick(i) {
     if (squares[i] || calculateWinner(squares)) {
       return;
@@ -17,8 +17,10 @@ function Board({ xIsNext, squares, onPlay }) {
     const nextSquares = squares.slice();
     if (xIsNext) {
       nextSquares[i] = 'X';
+      if (audioRefX.current) audioRefX.current.play(); // Play click1.mp3 on X click
     } else {
       nextSquares[i] = 'O';
+      if (audioRefO.current) audioRefO.current.play(); // Play click2.mp3 on O click
     }
     onPlay(nextSquares);
   }
@@ -26,7 +28,9 @@ function Board({ xIsNext, squares, onPlay }) {
   const winner = calculateWinner(squares);
   let status;
   if (winner) {
+    if (audioRefWinner.current) audioRefWinner.current.play(); // Play winner.mp3 on winner
     status = 'Winner: ' + winner;
+
   } else {
     status = 'Next player: ' + (xIsNext ? 'X' : 'O');
   }
@@ -58,6 +62,9 @@ export default function Game() {
   const [currentMove, setCurrentMove] = useState(0);
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
+  const audioRefX = useRef(null); // Define audioRefX in Game component
+  const audioRefO = useRef(null); // Define audioRefO in Game component
+  const audioRefWinner = useRef(null); // Define audioRefWinner in Game component
 
   function handlePlay(nextSquares) {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
@@ -84,13 +91,25 @@ export default function Game() {
   });
 
   return (
-    <div className="game">
-      <div className="game-board">
-        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+    <div className="game-wrapper">
+      <div className="game">
+        <div className="game-board">
+          <Board 
+            xIsNext={xIsNext} 
+            squares={currentSquares} 
+            onPlay={handlePlay} 
+            audioRefX={audioRefX} // Pass audioRefX to Board
+            audioRefO={audioRefO} // Pass audioRefO to Board
+            audioRefWinner={audioRefWinner}
+          />
+        </div>
+        <div className="game-info">
+          <ol>{moves}</ol>
+        </div>
       </div>
-      <div className="game-info">
-        <ol>{moves}</ol>
-      </div>
+      <audio src='../public/click1.mp3' ref={audioRefX} preload='auto' />
+      <audio src='../public/click2.mp3' ref={audioRefO} preload='auto' />
+      <audio src='../public/winner.mp3' ref={audioRefWinner} preload='auto' />
     </div>
   );
 }

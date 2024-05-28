@@ -1,0 +1,140 @@
+/* General styles */
+body {
+  background-color: #121212;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+button {
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  background-color: #2c2c2c;
+  border: 2px solid #444444;
+  display: inline-block; /* Can be removed for future use */
+  margin: 10px; /* Combined margins into a single property */
+}
+
+button:hover {
+  background-color: #555555;
+  transform: scale(1.1);
+}
+
+button:focus {
+  outline: none;
+}
+
+.status {
+  font-size: 24px; /* Removed duplicate property */
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Board styles */
+.board-row {
+  display: flex;
+}
+
+.square {
+  width: 60px;
+  height: 60px;
+  background-color: #1c1c1c;
+  border: 2px solid #444444;
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.square:hover {
+  background-color: #333333;
+  transform: scale(1.1);
+}
+
+/* Game container styles */
+.game-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  max-width: 600px;
+  margin: 0 auto;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.game {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  max-width: 600px;
+}
+
+/* Game info styles */
+.game-info {
+  overflow-y: auto;
+  max-width: 300px;
+  padding: 10px;
+  background-color: #1c1c1c;
+  border: 2px solid #444444;
+  border-radius: 10px;
+  animation: fadeIn 0.5s, slideIn 0.5s ease-in-out;
+  max-height: 7rem; /* Adjust based on your design preference */
+}
+
+.game-info ol {
+  padding-left: 0;
+}
+
+.game-info li {
+  list-style: none;
+  margin-bottom: 5px;
+}
+
+.game-info button {
+  padding: 5px 10px;
+  background-color: #2c2c2c;
+  border: 2px solid #444444;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.game-info button:hover {
+  background-color: #555555;
+  transform: scale(1.1);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
