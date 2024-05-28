@@ -107,9 +107,9 @@ export default function Game() {
           <ol>{moves}</ol>
         </div>
       </div>
-      <audio src='../public/click1.mp3' ref={audioRefX} preload='auto' />
-      <audio src='../public/click2.mp3' ref={audioRefO} preload='auto' />
-      <audio src='../public/winner.mp3' ref={audioRefWinner} preload='auto' />
+      <audio src='click1.mp3' ref={audioRefX} preload='auto' />
+      <audio src='click2.mp3' ref={audioRefO} preload='auto' />
+      <audio src='winner.mp3' ref={audioRefWinner} preload='auto' />
     </div>
   );
 }
